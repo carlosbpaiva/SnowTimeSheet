@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_ui_action">
+    <sys_ui_action action="INSERT_OR_UPDATE">
+        <action_name/>
+        <active>true</active>
+        <client>false</client>
+        <comments/>
+        <condition/>
+        <form_action>true</form_action>
+        <form_button>true</form_button>
+        <form_context_menu>false</form_context_menu>
+        <form_link>true</form_link>
+        <form_style/>
+        <hint/>
+        <list_action>false</list_action>
+        <list_banner_button>false</list_banner_button>
+        <list_button>false</list_button>
+        <list_choice>false</list_choice>
+        <list_context_menu>false</list_context_menu>
+        <list_link>false</list_link>
+        <list_save_with_form_button>false</list_save_with_form_button>
+        <list_style/>
+        <name>Generate TimeSheet</name>
+        <onclick/>
+        <order>100</order>
+        <script><![CDATA[var content = new GenerateTimeSheetReport().generate(current.user, current.month);
+var html = "";
+for( var customer in content ) {
+	if( customer.length == 0 ) {
+		continue;
+	}
+	var custData = content[customer];
+	html += "<p><span><h1>" + customer + " - "
+		+ custData.total + "h</h1>";
+	for( var date in custData ) {
+		if( date === "total" ) {
+			continue;
+		}
+		var dateData = custData[date];
+		html += "<p><span><h2>" + date + " - "
+			+ dateData.total + "h</h2><ul>";
+		for(var task in dateData) {
+			if( task === "total" ) {
+				continue;
+			}
+			var taskData = dateData[task];
+			html += "<li><span>" + task + " </span>"
+				+ "<span>" + taskData.timeWorked + " h </span>"
+				+ "<span>" + taskData.description + "</span></li>";
+		}
+		html += "</ul>";
+	} 
+	html += "</span></p>";
+}
+current.timesheet = html;
+current.update();]]></script>
+        <show_insert>true</show_insert>
+        <show_multiple_update>false</show_multiple_update>
+        <show_query>false</show_query>
+        <show_update>true</show_update>
+        <sys_class_name>sys_ui_action</sys_class_name>
+        <sys_created_by>bandiera.flts</sys_created_by>
+        <sys_created_on>2018-05-28 01:03:28</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>25499956135a9f00d7bbb8304244b0f2</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>Generate TimeSheet</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="FLTS Timesheet" source="x_falt_flts_timesh">687b5bb8139edb00d7bbb8304244b0fb</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FLTS Timesheet">687b5bb8139edb00d7bbb8304244b0fb</sys_scope>
+        <sys_update_name>sys_ui_action_25499956135a9f00d7bbb8304244b0f2</sys_update_name>
+        <sys_updated_by>bandiera.flts</sys_updated_by>
+        <sys_updated_on>2018-05-28 01:43:48</sys_updated_on>
+        <table>x_falt_flts_timesh_flts_timesheet_table</table>
+        <ui11_compatible>true</ui11_compatible>
+        <ui16_compatible>false</ui16_compatible>
+    </sys_ui_action>
+</record_update>
