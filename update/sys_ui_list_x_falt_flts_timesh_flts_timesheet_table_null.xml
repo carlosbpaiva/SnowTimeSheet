@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_list parent="" relationship="" sys_domain="global" table="x_falt_flts_timesh_flts_timesheet_table" version="2" view="">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>number</element>
+            <list_id display_value="x_falt_flts_timesh_flts_timesheet_table" element="NULL" name="x_falt_flts_timesh_flts_timesheet_table" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">ed9e54dd131a1f00d7bbb8304244b0e5</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>bandiera.flts</sys_created_by>
+            <sys_created_on>2018-05-24 18:12:19</sys_created_on>
+            <sys_id>659e54dd131a1f00d7bbb8304244b0e6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>bandiera.flts</sys_updated_by>
+            <sys_updated_on>2018-05-24 18:12:19</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>month</element>
+            <list_id display_value="x_falt_flts_timesh_flts_timesheet_table" element="NULL" name="x_falt_flts_timesh_flts_timesheet_table" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">ed9e54dd131a1f00d7bbb8304244b0e5</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>bandiera.flts</sys_created_by>
+            <sys_created_on>2018-05-24 18:12:19</sys_created_on>
+            <sys_id>e59e54dd131a1f00d7bbb8304244b0e6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>bandiera.flts</sys_updated_by>
+            <sys_updated_on>2018-05-24 18:12:19</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>timesheet</element>
+            <list_id display_value="x_falt_flts_timesh_flts_timesheet_table" element="NULL" name="x_falt_flts_timesh_flts_timesheet_table" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">ed9e54dd131a1f00d7bbb8304244b0e5</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>bandiera.flts</sys_created_by>
+            <sys_created_on>2018-05-24 18:12:19</sys_created_on>
+            <sys_id>699e54dd131a1f00d7bbb8304244b0e6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>bandiera.flts</sys_updated_by>
+            <sys_updated_on>2018-05-24 18:12:19</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>user</element>
+            <list_id display_value="x_falt_flts_timesh_flts_timesheet_table" element="NULL" name="x_falt_flts_timesh_flts_timesheet_table" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">ed9e54dd131a1f00d7bbb8304244b0e5</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>3</position>
+            <sum>false</sum>
+            <sys_created_by>bandiera.flts</sys_created_by>
+            <sys_created_on>2018-05-24 18:12:19</sys_created_on>
+            <sys_id>e99e54dd131a1f00d7bbb8304244b0e6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>bandiera.flts</sys_updated_by>
+            <sys_updated_on>2018-05-24 18:12:19</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>x_falt_flts_timesh_flts_timesheet_table</name>
+            <parent/>
+            <position/>
+            <relationship/>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>bandiera.flts</sys_created_by>
+            <sys_created_on>2018-05-24 18:12:19</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>ed9e54dd131a1f00d7bbb8304244b0e5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_falt_flts_timesh_flts_timesheet_table</sys_name>
+            <sys_package display_value="FLTS Timesheet" source="x_falt_flts_timesh">687b5bb8139edb00d7bbb8304244b0fb</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="FLTS Timesheet">687b5bb8139edb00d7bbb8304244b0fb</sys_scope>
+            <sys_update_name>sys_ui_list_x_falt_flts_timesh_flts_timesheet_table_null</sys_update_name>
+            <sys_updated_by>bandiera.flts</sys_updated_by>
+            <sys_updated_on>2018-05-24 18:12:19</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+</record_update>

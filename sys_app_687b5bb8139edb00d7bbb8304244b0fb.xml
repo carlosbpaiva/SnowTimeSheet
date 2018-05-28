@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_app">
+    <sys_app action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <enforce_license>none</enforce_license>
+        <js_level>helsinki_es5</js_level>
+        <licensable>true</licensable>
+        <license_model>none</license_model>
+        <logo/>
+        <menu display_value="FLTS Timesheet">b47b9ff8139edb00d7bbb8304244b0ab</menu>
+        <name>FLTS Timesheet</name>
+        <private>false</private>
+        <restrict_table_access>false</restrict_table_access>
+        <runtime_access_tracking>permissive</runtime_access_tracking>
+        <scope>x_falt_flts_timesh</scope>
+        <scoped_administration>false</scoped_administration>
+        <short_description/>
+        <source>x_falt_flts_timesh</source>
+        <store_correlation_id/>
+        <store_url/>
+        <sys_class_name>sys_app</sys_class_name>
+        <sys_code/>
+        <sys_created_by>bandiera.flts</sys_created_by>
+        <sys_created_on>2018-05-23 18:40:30</sys_created_on>
+        <sys_id>687b5bb8139edb00d7bbb8304244b0fb</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>bandiera.flts</sys_updated_by>
+        <sys_updated_on>2018-05-23 18:40:30</sys_updated_on>
+        <template/>
+        <trackable>true</trackable>
+        <user_role display_value="x_falt_flts_timesh.user" name="x_falt_flts_timesh.user">307b9ff8139edb00d7bbb8304244b0ae</user_role>
+        <vendor/>
+        <vendor_prefix/>
+        <version>1.0.0</version>
+    </sys_app>
+</record_update>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_falt_flts_timesh.GenerateTimeSheetReport</api_name>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>GenerateTimeSheetReport</name>
+        <script><![CDATA[var GenerateTimeSheetReport = Class.create();
+GenerateTimeSheetReport.prototype = {
+	initialize: function() {
+	},
+	generate: function(user, month) {
+		var iniMes = new GlideDate();
+		iniMes.setGlideDateTime(month);
+		iniMes.addDaysUTC( ( iniMes.dayOfMonthUTC - 1 ) * -1 );
+		var fimMes = new GlideDate();
+		fimMes.setValue(iniMes);
+		fimMes.addMonthsUTC(1);
+		fimMes.addDaysUTC(-1);
+
+		var iniSem = new GlideDateTime(iniMes);
+		//iniSem.setDisplayValue("2018-05-01");
+		iniSem.addDaysLocalTime(iniSem.dayOfWeek * -1);
+		gs.debug("Start reading from " + iniSem.getDisplayValue());
+		var grTimeCard = new GlideRecord("time_card");
+		grTimeCard.addQuery("user", user);
+		grTimeCard.addQuery("week_starts_on", ">=", iniSem);
+		grTimeCard.orderBy("week_starts_on");
+
+		var weekDays=[
+			"sunday",
+			"monday",
+			"tuesday",
+			"wednesday",
+			"thursday",
+			"friday",
+			"saturday"
+		];
+
+		var timeRecords = {};
+		grTimeCard.query();
+		while( grTimeCard.next() ) {
+			var task = grTimeCard.task.getRefRecord();
+			var weekStart = new GlideDateTime(grTimeCard.week_starts_on);
+			if( weekStart.compareTo(fimMes) > 0 ) {
+				break;
+			}
+			var company = task.company;
+			var projectNo = "";
+			var project = "Incident";
+
+			if( ! company  ) {
+				if( task.top_task ) {
+					company = task.top_task.company;
+					project = task.top_task.short_description.getDisplayValue() ;
+					projectNo = task.top_task.number.getDisplayValue();
+				}
+			}
+			company = company.getDisplayValue();
+
+			var companyTime = timeRecords[company];
+			if( ! companyTime ) {
+				companyTime = { total: 0 };
+				timeRecords[company] = companyTime;
+			}
+
+			var diaRef = new GlideDateTime(weekStart);
+			for( var ix=0; ix<6; ix++ ) {
+				var timeWorked = grTimeCard[weekDays[ix]];
+				if( ! timeWorked ) {
+					continue;
+				}
+				companyTime.total += timeWorked;
+				diaRef.addDaysLocalTime(ix);
+				var data = diaRef.getLocalDate();
+				data = data.getByFormat("dd/MM");
+				var companyDay = companyTime[data];
+				if( ! companyDay ) {
+					companyDay = { total: 0 };
+					companyTime[data] = companyDay;
+				}
+				companyDay.total += timeWorked;
+				companyDay[task.number.getDisplayValue()] = {
+					"number": task.number.getDisplayValue(),
+					"projectNo": projectNo,
+					"description": task.short_description.getDisplayValue(),
+					"project": project,
+					"date": data,
+					"timeWorked": timeWorked.getDisplayValue(),
+				};
+			}
+		}
+		gs.debug( JSON.stringify(timeRecords));
+		return timeRecords;
+	},
+
+	type: 'GenerateTimeSheetReport'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>bandiera.flts</sys_created_by>
+        <sys_created_on>2018-05-23 22:02:10</sys_created_on>
+        <sys_id>6ac82fb013dedb00d7bbb8304244b0d3</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>GenerateTimeSheetReport</sys_name>
+        <sys_package display_value="FLTS Timesheet" source="x_falt_flts_timesh">687b5bb8139edb00d7bbb8304244b0fb</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="FLTS Timesheet">687b5bb8139edb00d7bbb8304244b0fb</sys_scope>
+        <sys_update_name>sys_script_include_6ac82fb013dedb00d7bbb8304244b0d3</sys_update_name>
+        <sys_updated_by>bandiera.flts</sys_updated_by>
+        <sys_updated_on>2018-05-24 19:38:37</sys_updated_on>
+    </sys_script_include>
+</record_update>
