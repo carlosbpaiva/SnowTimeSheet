@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_view">
+    <sys_ui_view action="INSERT_OR_UPDATE">
+        <group/>
+        <hidden>false</hidden>
+        <name>sys_popup,Workbench</name>
+        <roles/>
+        <sys_class_name>sys_ui_view</sys_class_name>
+        <sys_created_by>bandiera.flts</sys_created_by>
+        <sys_created_on>2018-06-28 13:26:06</sys_created_on>
+        <sys_id>1ebca798134b1b4046c0529f3244b0dc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Sys_popup,workbench</sys_name>
+        <sys_package display_value="FLTS Timesheet" source="x_falt_flts_timesh">687b5bb8139edb00d7bbb8304244b0fb</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FLTS Timesheet">687b5bb8139edb00d7bbb8304244b0fb</sys_scope>
+        <sys_update_name>sys_ui_view_1ebca798134b1b4046c0529f3244b0dc</sys_update_name>
+        <sys_updated_by>bandiera.flts</sys_updated_by>
+        <sys_updated_on>2018-06-28 13:26:06</sys_updated_on>
+        <title>Sys_popup,workbench</title>
+        <user/>
+    </sys_ui_view>
+</record_update>

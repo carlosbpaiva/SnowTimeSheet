@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_falt_flts_timesh.FLTSTimeCardUtils</api_name>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>FLTSTimeCardUtils</name>
+        <script><![CDATA[var FLTSTimeCardUtils = Class.create();
+
+FLTSTimeCardUtils.prototype = {
+	initialize: function() {
+		
+	},
+	
+	updateFLTSTimesheet: function(timeCard) {
+		gs.debug("FLTSTimeCardUtils - Initializing");
+		var weekDays=[
+			"sunday",
+			"monday",
+			"tuesday",
+			"wednesday",
+			"thursday",
+			"friday",
+			"saturday"
+		];
+		this.timeCard = timeCard;
+		this.task = this.timeCard.task.getRefRecord();
+		this.company = this.task.company;
+		this.project = "Incident";
+		if( ! this.company  ) {
+			if( this.task.top_task ) {
+				this.company = this.task.top_task.company;
+				this.project = this.task.top_task.number.getDisplayValue()
+					+ " - " + this.task.top_task.short_description.getDisplayValue() ;
+			}
+		}
+		gs.debug("FLTSTimeCardUtils - Company:" + this.company.getDisplayValue()
+				+ " Project " + this.project );
+		var weekStart = new GlideDateTime(timeCard.week_starts_on);
+		gs.debug("Week starts on " + weekStart);
+		for( var ix=0; ix<7; ix++ ) {
+			var diaRef = new GlideDateTime(weekStart);
+			diaRef.addDaysUTC(ix);
+			diaRef = diaRef.getLocalDate();
+			var hours = timeCard[weekDays[ix]];
+			gs.debug(("Updating hours:"+ hours + " for " + diaRef.getDisplayValue()));
+			this._updateTSDetail( diaRef, hours );
+		}
+	},
+	
+	_updateTSDetail: function( date, hours ) {
+		var tsDetail = new GlideRecord("x_falt_flts_timesh_timesheet_detail");
+		tsDetail.addQuery("time_card", this.timeCard.sys_id);
+		tsDetail.addQuery("date", date);
+		tsDetail.query();
+		if( ! tsDetail.next() ) {
+			tsDetail.initialize();
+			tsDetail.time_card = this.timeCard.sys_id;
+			tsDetail.date = date;
+			tsDetail.project = this.project;
+			tsDetail.task = this.task.sys_id;
+			tsDetail.company = this.company.sys_id;
+			/*
+			*/
+		} else {
+			if( hours == 0 ) {
+				tsDetail.deleteRecord();
+			}
+		}
+		if( hours != 0 ) {
+			gs.debug("Saving Record...");
+			tsDetail.hours_worked = hours;
+			tsDetail.update();
+		}
+	},
+	/*
+	** Get the FLTS_Timesheet for the user / month
+	*/
+	getTimeSheet: function( workDate ) {
+		var axDate = new GlideDateTime(workDate);
+		var timeSheet = new GlideRecord("x_falt_flts_timesh_flts_timesheet_table");
+		var iniMes = new GlideDate();
+		iniMes.setValue(axDate);
+		iniMes.addDaysUTC( ( iniMes.dayOfMonthUTC - 1 ) * -1 );
+		timeSheet.addQuery("user", this.timeCard.user);
+		timeSheet.addQuery("month", iniMes);
+		timeSheet.query();
+		if( timeSheet.next() ) {
+			return timeSheet;
+		}
+		timeSheet.initialize();
+		timeSheet.user = user;
+		timeSheet.month = iniMes;
+		timeSheet.update();
+		return timeSheet;
+	},
+	
+	generate: function(user, month) {
+		var iniMes = new GlideDate();
+		iniMes.setValue(month);
+		iniMes.addDaysUTC( ( iniMes.dayOfMonthUTC - 1 ) * -1 );
+		var fimMes = new GlideDate();
+		fimMes.setValue(iniMes);
+		fimMes.addMonthsUTC(1);
+		fimMes.addDaysUTC(-1);
+
+		var iniSem = new GlideDateTime(iniMes);
+		//iniSem.setDisplayValue("2018-05-01");
+		iniSem.addDaysUTC(iniSem.dayOfWeek * -1);
+		gs.debug("Start reading from " + iniSem.getDisplayValue());
+		var grTimeCard = new GlideRecord("time_card");
+		grTimeCard.addQuery("user", user);
+		grTimeCard.addQuery("week_starts_on", ">=", iniSem);
+		grTimeCard.orderBy("week_starts_on");
+
+		var timeRecords = {};
+		grTimeCard.query();
+		while( grTimeCard.next() ) {
+			var task = grTimeCard.task.getRefRecord();
+			var weekStart = new GlideDateTime(grTimeCard.week_starts_on);
+			if( weekStart.compareTo(fimMes) > 0 ) {
+				break;
+			}
+			var company = task.company;
+			var projectNo = "";
+			var project = "Incident";
+
+			if( ! company  ) {
+				if( task.top_task ) {
+					company = task.top_task.company;
+					project = task.top_task.short_description.getDisplayValue() ;
+					projectNo = task.top_task.number.getDisplayValue();
+				}
+			}
+			company = company.getDisplayValue();
+
+			var companyTime = timeRecords[company];
+			if( ! companyTime ) {
+				companyTime = { total: 0 };
+				timeRecords[company] = companyTime;
+			}
+
+			for( var ix=0; ix<7; ix++ ) {
+				var diaRef = new GlideDateTime(weekStart);
+				diaRef.addDaysUTC(ix);
+				var timeWorked = grTimeCard[weekDays[ix]];
+				if( diaRef.compareTo(iniMes) < 0 
+				   || diaRef.compareTo(fimMes) > 0
+				   || timeWorked == "0" ) {
+					continue;
+				}
+				companyTime.total += timeWorked;
+				var data = diaRef.getDate();
+				data = data.getByFormat("dd/MM");
+				var companyDay = companyTime[data];
+				if( ! companyDay ) {
+					companyDay = { total: 0 };
+					companyTime[data] = companyDay;
+				}
+				companyDay.total += timeWorked;
+				companyDay[task.number.getDisplayValue()] = {
+					"number": task.number.getDisplayValue(),
+					"projectNo": projectNo,
+					"description": task.short_description.getDisplayValue(),
+					"project": project,
+					"date": data,
+					"timeWorked": timeWorked.getDisplayValue(),
+				};
+			}
+		}
+		gs.debug( JSON.stringify(timeRecords));
+		return timeRecords;
+	},
+
+	type: 'FLTSTimeCardUtils'
+};
+
+
+/*
+* Get the timesheet_detail record for the time_card / date
+*/
+]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>bandiera.flts</sys_created_by>
+        <sys_created_on>2018-07-06 21:28:27</sys_created_on>
+        <sys_id>46d76e0f138f9780d7bbb8304244b069</sys_id>
+        <sys_mod_count>28</sys_mod_count>
+        <sys_name>FLTSTimeCardUtils</sys_name>
+        <sys_package display_value="FLTS Timesheet" source="x_falt_flts_timesh">687b5bb8139edb00d7bbb8304244b0fb</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="FLTS Timesheet">687b5bb8139edb00d7bbb8304244b0fb</sys_scope>
+        <sys_update_name>sys_script_include_46d76e0f138f9780d7bbb8304244b069</sys_update_name>
+        <sys_updated_by>bandiera.flts</sys_updated_by>
+        <sys_updated_on>2018-07-09 10:08:48</sys_updated_on>
+    </sys_script_include>
+</record_update>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Timesheet Detail" max_length="40" name="x_falt_flts_timesh_timesheet_detail" type="collection">
+        <element label="Comments" max_length="1024" name="comments" type="string"/>
+        <element label="Company" mandatory="true" max_length="32" name="company" reference="core_company" type="reference"/>
+        <element label="Date" mandatory="true" max_length="40" name="date" type="glide_date"/>
+        <element label="Hours Worked" mandatory="true" max_length="20" name="hours_worked" type="decimal"/>
+        <element label="Project" mandatory="true" max_length="100" name="project" type="string"/>
+        <element display="true" label="Task" mandatory="true" max_length="32" name="task" reference="task" reference_cascade_rule="cascade" type="reference"/>
+        <element label="Time Card" mandatory="true" max_length="32" name="time_card" reference="time_card" reference_cascade_rule="cascade" type="reference"/>
+        <index name="index">
+            <element name="task"/>
+        </index>
+        <index name="index2">
+            <element name="time_card"/>
+        </index>
+        <index name="index3">
+            <element name="company"/>
+        </index>
+    </element>
+</database>
