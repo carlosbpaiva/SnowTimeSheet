@@ -43,7 +43,7 @@ FLTSTimeCardUtils.prototype = {
 		for( var ix=0; ix<7; ix++ ) {
 			var diaRef = new GlideDateTime(weekStart);
 			diaRef.addDaysUTC(ix);
-			diaRef = diaRef.getLocalDate();
+			diaRef = diaRef.getDate();
 			var hours = timeCard[weekDays[ix]];
 			gs.debug(("Updating hours:"+ hours + " for " + diaRef.getDisplayValue()));
 			this._updateTSDetail( diaRef, hours );
@@ -186,13 +186,13 @@ FLTSTimeCardUtils.prototype = {
         <sys_created_by>bandiera.flts</sys_created_by>
         <sys_created_on>2018-07-06 21:28:27</sys_created_on>
         <sys_id>46d76e0f138f9780d7bbb8304244b069</sys_id>
-        <sys_mod_count>28</sys_mod_count>
+        <sys_mod_count>29</sys_mod_count>
         <sys_name>FLTSTimeCardUtils</sys_name>
         <sys_package display_value="FLTS Timesheet" source="x_falt_flts_timesh">687b5bb8139edb00d7bbb8304244b0fb</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="FLTS Timesheet">687b5bb8139edb00d7bbb8304244b0fb</sys_scope>
         <sys_update_name>sys_script_include_46d76e0f138f9780d7bbb8304244b069</sys_update_name>
         <sys_updated_by>bandiera.flts</sys_updated_by>
-        <sys_updated_on>2018-07-09 10:08:48</sys_updated_on>
+        <sys_updated_on>2018-07-20 17:36:56</sys_updated_on>
     </sys_script_include>
 </record_update>

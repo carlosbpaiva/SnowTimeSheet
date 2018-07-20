@@ -14,7 +14,7 @@
         <map_page/>
         <mobile_title>FLTS Timesheet Table</mobile_title>
         <mobile_view_name>Mobile</mobile_view_name>
-        <name>x_falt_flts_timesh_flts_timesheet_table</name>
+        <name>x_falt_flts_timesh_timesheet_detail</name>
         <order/>
         <override_menu_roles>false</override_menu_roles>
         <query/>
@@ -26,17 +26,17 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>117bdff8139edb00d7bbb8304244b0aa</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_name>FLTS Timesheet Table</sys_name>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>FLTS Timesheet</sys_name>
         <sys_overrides/>
         <sys_package display_value="FLTS Timesheet" source="x_falt_flts_timesh">687b5bb8139edb00d7bbb8304244b0fb</sys_package>
         <sys_policy/>
         <sys_scope display_value="FLTS Timesheet">687b5bb8139edb00d7bbb8304244b0fb</sys_scope>
         <sys_update_name>sys_app_module_117bdff8139edb00d7bbb8304244b0aa</sys_update_name>
         <sys_updated_by>bandiera.flts</sys_updated_by>
-        <sys_updated_on>2018-05-23 18:40:33</sys_updated_on>
+        <sys_updated_on>2018-07-20 17:39:42</sys_updated_on>
         <timeline_page/>
-        <title>FLTS Timesheet Table</title>
+        <title>FLTS Timesheet</title>
         <uncancelable>false</uncancelable>
         <view_name/>
         <window_name/>
